@@ -45,8 +45,8 @@ $script = eZScript::instance( array( 'description' => ( "eZ Publish CSV import s
 
 $script->startup();
 
-$options = $script->getOptions( "[lang:][storage-dir:]",
-                                "[file]",
+$options = $script->getOptions( "[lang:][storage-dir:][file:]",
+                                "",
                                 array( 'file' => 'file to read CSV data from',
 									   'lang' => 'language of the object',
                                        'storage-dir' => 'path to directory which will be added to the path of CSV elements' ),
@@ -54,16 +54,17 @@ $options = $script->getOptions( "[lang:][storage-dir:]",
                                 array( 'user' => true ));
 $script->initialize();
 
-if ( count( $options['arguments'] ) < 1 )
-{
+$inputFileName = $options['file'];
+$lang = $options['lang'];
+
+if ( is_null($inputFileName) || $inputFileName=='') {
     $cli->error( "Need a file to read data from" );
     $script->shutdown( 1 );
 }
 
-$inputFileName = $options['arguments'][0];
-$lang = $options['lang'];
+
 if ( is_null($lang) || $lang=='') {
-	$lang = 'eng-GB';
+	$lang = 'fre-FR';
 }
 if ( $options['storage-dir'] )
 {
