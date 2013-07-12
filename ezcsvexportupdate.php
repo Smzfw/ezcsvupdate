@@ -92,7 +92,7 @@ $subTree = $node->subTree();
 $openedFPs = array();
 
 $ignoredDataType = array("ezboolean","ezdatetime","ezobjectrelationlist");
-
+  
 while ( list( $key, $childNode ) = each( $subTree ) )
 {
     $status = true;
@@ -172,12 +172,25 @@ while ( list( $key, $childNode ) = each( $subTree ) )
 						}
 						$attributeStringContent = $binaryData[1];
 					} break;
+					case 'ezxmltext':
+					{
+						
+						$attributeStringContent = str_replace('<?xml version="1.0" encoding="utf-8"?>
+<section xmlns:image="http://ez.no/namespaces/ezpublish3/image/" xmlns:xhtml="http://ez.no/namespaces/ezpublish3/xhtml/" xmlns:custom="http://ez.no/namespaces/ezpublish3/custom/">', "", $attributeStringContent);
+						$attributeStringContent = str_replace(' xmlns:tmp="http://ez.no/namespaces/ezpublish3/temporary/"',"",$attributeStringContent);
+					}break;
+					
 
 					default:
 				}
 			}
 			
-			$objectData[] = mb_convert_encoding($attributeStringContent, 'Windows-1252', 'UTF-8');
+			
+			
+			
+			$attributeStringContent = convert_smart_quotes($attributeStringContent) ;
+			$objectData[] = mb_convert_encoding($attributeStringContent, 'ISO-8859-15', 'UTF-8');
+
 		}
     }
 
@@ -202,5 +215,25 @@ while ( $fp = each( $openedFPs ) )
 }
 
 $script->shutdown();
+
+function convert_smart_quotes($string) 
+{ 
+    $search = array(chr(145), 
+                    chr(146), 
+                    chr(147), 
+                    chr(148), 
+                    chr(151),
+					chr(226)
+					); 
+
+    $replace = array("'", 
+                     "'", 
+                     '"', 
+                     '"', 
+                     '-',
+					 "'"); 
+
+    return str_replace($search, $replace, $string); 
+}
 
 ?>
