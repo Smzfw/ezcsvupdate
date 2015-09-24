@@ -1,42 +1,48 @@
 ezcsvupdate
 ===========
 
-This script is used for the CMS eZPublish (4.4), eZPublish already got a script ezcsvexport/ezcsvimport, but it's not used to add translation. 
+Those script provide a way to export or import database data into csv in eZPublish 4.4 
+
+eZPublish already got ezcsvexport/ezcsvimport script , but it doesn't take care of translation. 
 
 
-
-Export du contenu
+=================
+To export content
+=================
 
 Script used to export is in bin/php/ezcsvexportupdate.php
 Params : 
 
-–storage-dir 	: Folder to export csv files	
+–storage-dir  	: Folder to export csv files	(Mandatory)
   exemple : –storage-dir=export 	
-  Obligatoire 	
-–siteaccess / -s 	: Siteaccess to update	
+   	
+–siteaccess / -s 	 : Siteaccess to update	 ( Facultative )
   exemple : -s bourgogne / -s bourgogne_en 	
-  Facultative 
-  defaut :   defaut siteaccess
+  default :   default siteaccess
 
-Exemple d'utilisation : php bin/php/ezcsvexportupdate.php –verbose 2 -s bourgogne –storage-dir=export
-
-Import du contenu
+Try case : php bin/php/ezcsvexportupdate.php –verbose 2 -s bourgogne –storage-dir=export
+=====================
+To import content
+=====================
 
 Script used to import is in bin/php/ezcsvimportupdate.php .
 Params
-–lang : Langue a laquelle le fichier csv va être importé dans le backoffice 	
+–lang  : The language that will be imported on your back office 	
   exemple : –lang=eng-GB 	
-  Facultative 	
-  defaut : fre-FR
-–login / -l 	: Utilisateur avec lequel l'objet va être update (changement de l'owner de l'objet) 	
-  exemple : -l user 	
-  Facultative 	
-  defaut : Anonymous User
-–password / -p : 	Mot de passe de l'utilisateur 	
-  exemple -p pwd 	
-  Facultative 	
-  defaut : Anonymous User
-–file 	: Fichier csv a importer 	–file=export/news.csv 	Obligatoire 	
-–siteaccess / -s :	Siteaccess à mèttre a jour 	-s bourgogne 	Facultative 	SiteAccess par défaut
+  defaut : fre-FR 
 
-Exemple d'utilisation : php bin/php/ezcsvimportupdate.php -l export -p export –verbose -s bourgogne –lang=eng-GB –file=export/news.csv 
+–login / -l ( Facultative )	: eZPublish User owner (changement de l'owner de l'objet) 	
+  exemple : -l user 	
+  default : Anonymous User
+  
+–password / -p : 	User password 	( Facultative )
+  exemple -p pwd 	
+  defaut : Anonymous User
+
+–file 	: csv file 	( Mandatory )
+exemple : –file=export/news.csv 
+
+–siteaccess / -s :	Siteaccess to update 	-s bourgogne 	( Facultative ) 	
+Default : Default SiteAccess 
+
+Try case : php bin/php/ezcsvimportupdate.php -l export -p export –verbose -s bourgogne –lang=eng-GB –file=export/news.csv 
