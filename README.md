@@ -6,7 +6,7 @@ Those script provide a way to export or import database data into csv in eZPubli
 eZPublish already got ezcsvexport/ezcsvimport script , but it doesn't take care of translation. 
 
 
-=================
+
 To export content
 =================
 
@@ -21,7 +21,8 @@ Params :
   default :   default siteaccess
 
 Try case : php bin/php/ezcsvexportupdate.php –verbose 2 -s bourgogne –storage-dir=export
-=====================
+
+
 To import content
 =====================
 
